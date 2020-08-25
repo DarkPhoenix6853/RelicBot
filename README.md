@@ -1,4 +1,4 @@
-# RelicBot test
+# RelicBot
 Relic-tagging bot for Relic Burners
 
 ## Current Commands/features
