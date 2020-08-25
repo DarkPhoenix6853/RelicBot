@@ -172,7 +172,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 
 ## Possible future features
 ### Small
-* Merge back to its own repository - make a new one for PhoenixBot
 
 ### Medium
 
