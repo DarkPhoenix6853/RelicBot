@@ -107,7 +107,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * e.g. ++create -i Need someone else to host... (message as usual)
     * Would add some kind of info text to each squad, instead of splitting it off from them
     * Alternatively, any line beginning with -i becomes the info message for every squad below that (until another is reached)
-* Possible improvements to parsing - see function in Create
+* Possible improvements to 1/4 parsing - see function in Create
 ### Project Escape
 * Make sure people entering Discord formatting characters don't affect message formatting
     * In usernames e.g. \_person\_
