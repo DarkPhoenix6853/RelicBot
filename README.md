@@ -98,7 +98,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Changes for "recruiting squads" and "recruiting chat"
     * Have a notice at the top of recruitment saying how to join squads to replace the current reminder text
     * ~~Delete non-command messages immediately~~
-* If Create is overwriting an open squad, delete that message
+* ~~If Create is overwriting an open squad, delete that message~~
 ### Project Search
 * ~~New command to display all open squads that contain relics~~
     * ~~Either input a specific relic or leave blank for subbed squads~~
