@@ -98,6 +98,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Changes for "recruiting squads" and "recruiting chat"
     * Have a notice at the top of recruitment saying how to join squads to replace the current reminder text
     * ~~Delete non-command messages immediately~~
+* If Create is overwriting an open squad, delete that message
 ### Project Search
 * ~~New command to display all open squads that contain relics~~
     * ~~Either input a specific relic or leave blank for subbed squads~~
@@ -137,10 +138,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Add a remake command - ++remake ID @players
     * Opens squad "ID"
     * uses the same text
-    * fills it with players immediately
     * posts a new host message
-    * only works if the old host uses it
-        * Also only if the tagged players were in the squad?
+    * Only works if target squad is closed
+    * If tagged players were in the original squad, join them immediately
     * Change "Squad" command to show original message
         * Make it work for closed squads
 * Add a bump command
