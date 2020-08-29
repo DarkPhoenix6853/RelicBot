@@ -163,6 +163,25 @@ async function createSquads2(client, author, channel, splitMessages) {
             squadObject.hostID = author.id;
             squadObject.joinedIDs = [];
 
+            //if there's an older squad with this ID, delete its message
+            if (client.lobbyDB.has(lobbyIndex.toString())) {
+                let oldSquad = client.lobbyDB.get(lobbyIndex);
+                if (oldSquad.open) {
+                    const channelID = client.config.get('channelConfig').recruitChannel;
+                    const messageID = oldSquad.messageID;
+
+                    const channel = client.channels.get(channelID);
+                    let messageNotFound = false;
+                    channel.fetchMessage(messageID)
+                    .catch(() => {
+                        messageNotFound = true;
+                    })
+                    .then(squadMessage => {
+                        if (!messageNotFound) squadMessage.delete();
+                    })
+                }
+            }
+
             //store to DB
             client.lobbyDB.set(lobbyIndex, squadObject);
         })
