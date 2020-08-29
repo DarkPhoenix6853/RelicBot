@@ -93,13 +93,17 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 
 ## Roadmap - Current
 ### Project Noticeboard - Finishing touches
-* See if I can get Eliecer to re-create the recruiting channel
+* See if I can get admins to re-create the recruiting channel
 * Post a welcome/howto join/create as the top message in the channel
 
 ### Library rework
 * Make a way to reload library functions
 * Factor out functions for closing/filling/squad capacity editing
 * Make library functions for logging, refactor out all those
+
+### Admin-closing
+* Command that lets someone with certain permissions close any squad they want
+* No "all" option? 
 
 ### Project Emojis
 * Reaction-based joining
@@ -124,6 +128,11 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * Increment fill count on squad filled
     * Update timestamp on any message
 
+### Project Silence
+* Mute/Unmute commands
+* Commands just toggle muted status for that player
+* When Create does its pinging, checks if a player has the mute on
+
 ### Project Reputation
 * Track number of filled squads someone has been a part of
 * Some command to check someone's rep
@@ -132,7 +141,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 
 ## Roadmap - Future
 ### Improvements to notice board
-* Add some kind of override for people who want to add extra messages?
+* Add some way for people to post extra information for every squad
     * e.g. ++create -i Need someone else to host... (message as usual)
     * Would add some kind of info text to each squad, instead of splitting it off from them
     * Alternatively, any line beginning with -i becomes the info message for every squad below that (until another is reached)
@@ -154,8 +163,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * Leave would also be fine
     * Make sure to update ++help
 ### Project Cleanup
-* Commands for admins to close all or any squad
-* Timed closing
+* Timed squad closing
 * Add a remake command - ++remake ID @players
     * Opens squad "ID"
     * uses the same text
