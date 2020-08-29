@@ -91,11 +91,46 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 ### Additional Features
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
-## Roadmap
+## Roadmap - Current
 ### Project Noticeboard - Finishing touches
 * See if I can get Eliecer to re-create the recruiting channel
 * Post a welcome/howto join/create as the top message in the channel
 
+### Library rework
+* Make a way to reload library functions
+* Factor out functions for closing/filling/squad capacity editing
+* Make library functions for logging, refactor out all those
+
+### Project Emojis
+* Reaction-based joining
+    * On create, make enough reactions for squads (throw error if too many)
+    * On reaction
+        * search for a squad message with matching ID to see if we need to care
+        * Use join/leave as appropriate for the reacting user
+            * IGNORE HOST
+* Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway
+
+### Project PlayerDB
+* Add a third database for player-related data
+    * Could technically re-work the relic DB to be player-based, but then relic lookup would be very inefficient... 
+* To be saved: 
+    * Mute status (true/false)
+    * Last seen message (timestamp)
+    * Number of filled squads
+* Make a library function to check if someone has a DB entry, and if not create it
+    * Trigger when they are in a squad that fills
+* Actually worry about functionality later
+    * Toggle mute on Mute/Unmute commands
+    * Increment fill count on squad filled
+    * Update timestamp on any message
+
+### Project Reputation
+* Track number of filled squads someone has been a part of
+* Some command to check someone's rep
+* Leaderboard command
+* Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
+
+## Roadmap - Future
 ### Improvements to notice board
 * Add some kind of override for people who want to add extra messages?
     * e.g. ++create -i Need someone else to host... (message as usual)
@@ -118,13 +153,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * All Host-level commands would be fine
     * Leave would also be fine
     * Make sure to update ++help
-### Project Emojis
-* Reaction-based joining
-    * On create, make enough reactions for squads (throw error if too many)
-    * On reaction
-        * search for a squad message with matching ID to see if we need to care
-        * Use join/leave as appropriate for the reacting user
-            * IGNORE HOST
 ### Project Cleanup
 * Commands for admins to close all or any squad
 * Timed closing
@@ -152,16 +180,8 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * If someone is inactive, purge their relics from the DB (use code from someone leaving the server)
 * Probably leave them a message of some kind reminding them which relics they had, or even a command they can use to get them all back
 ### Project Spaghetti
-* Make a way to reload library functions
-* Factor out functions for closing/filling/squad capacity editing
-* Make library functions for logging, refactor out all those
 * On error event, check for error type, tailor response
     * In most circumstances, save to .json
-### Project Reputation
-* Track number of filled squads someone has been a part of
-* Some command to check someone's rep
-* Leaderboard command
-* Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 
 ## Possible future features
 ### Small
