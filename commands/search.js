@@ -116,25 +116,47 @@ async function playerSearch(client, channel, playerID) {
 function displayResults(client, channel, results) {
     //passed an array of objects
     //objects have "relic": relic name, "results": array of Result
-
+    let continued = false;
     let resultMessage = "";
     for (relic of results) {
         if (relic.results.length == 0) continue;
 
-        resultMessage += `\n**${relic.relicName}**:\n`;
+
+        let relicTitle = `\n**${relic.relicName}**:\n`;
+
+        if ((resultMessage.length + relicTitle.length) > 1048) {
+            sendEmbed(client, channel, continued? "Search Results (Continued)" : "Search Results", resultMessage);
+            resultMessage = relicTitle;
+            continued = true;
+        } else {
+            resultMessage += relicTitle;
+        }
+        
         for (result of relic.results) {
-            resultMessage += `[Squad ${result.squadID}](${result.messageURL}): ${result.messageContent}\n`;
+            let nextResult = `[Squad ${result.squadID}](${result.messageURL}): ${result.messageContent}\n`;
+            if ((resultMessage.length + nextResult.length) > 1048) {
+                sendEmbed(client, channel, continued? "Search Results (Continued)" : "Search Results", resultMessage);
+                resultMessage = nextResult;
+                continued = true;
+            } else {
+                resultMessage += nextResult;
+            }
         }
     }
 
     if (resultMessage == "") resultMessage = "No open squads found for those relics";
 
+    let title = continued? "Search Results (Continued)" : "Search Results";
+    sendEmbed(client, channel, title, resultMessage);
+}
+
+function sendEmbed(client, channel, title, description) {
     const { RichEmbed } = require('discord.js');
 
     const embed = new RichEmbed()
-    .setTitle('Search Results')
+    .setTitle(title)
     .setColor(client.config.get('baseConfig').colour)
-    .setDescription(resultMessage);
+    .setDescription(description);
 
     channel.send(embed);
 }
