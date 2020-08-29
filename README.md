@@ -92,16 +92,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
 ## Roadmap
-### Project Noticeboard
-* ~~Pull users from other squads~~
-* ~~Close squads from joined users~~
-* Changes for "recruiting squads" and "recruiting chat"
-    * Have a notice at the top of recruitment saying how to join squads to replace the current reminder text
-    * ~~Delete non-command messages immediately~~
-* ~~If Create is overwriting an open squad, delete that message~~
-### Project Search
-* ~~New command to display all open squads that contain relics~~
-    * ~~Either input a specific relic or leave blank for subbed squads~~
+### Project Noticeboard - Finishing touches
+* See if I can get Eliecer to re-create the recruiting channel
+* Post a welcome/howto join/create as the top message in the channel
 
 ### Improvements to notice board
 * Add some kind of override for people who want to add extra messages?
