@@ -9,5 +9,8 @@ exports.permissions = (client) => {
 
 //This code is run when the command is executed
 exports.run = (client, message, args) => {
-    message.channel.send(args.join(' '));
+    message.channel.send(args.join(' '))
+    .then((msg) => {
+        message.delete();
+    })
 };
