@@ -10,12 +10,20 @@ exports.run = (client, message, args) => {
     const { Client, RichEmbed } = require('discord.js');
 
     if (client.config.get('channelConfig').recruitChannel != message.channel.id) {
-        message.reply("That command is only for the recruiting channel, sorry");
+        message.reply("That command is only for the recruiting channel, sorry")
+        .then((msg) => {
+            msg.delete(10000);
+            message.delete(5000);
+        });
         return;
     }
 
     if (args.length == 0) {
-        message.reply("Please provide a host message.");
+        message.reply("Please provide a host message.")
+        .then((msg) => {
+            msg.delete(10000);
+            message.delete(5000);
+        });
         return;
     }
 
