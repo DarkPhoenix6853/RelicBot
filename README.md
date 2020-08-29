@@ -43,6 +43,8 @@ User-level commands (Bot channel):
     * Does not list closed squads
 * MySquads - Lists the squads you are waiting on
     * Sections for "Subbed squads", "Hosted squads" and "Full squads" 
+* Search - finds all open squads matching a specified relic
+    * If no relic is specified, finds all open squads that include a relic the player is subscribed to
 
 User-level commands (Recruiting channel):
 * Create
