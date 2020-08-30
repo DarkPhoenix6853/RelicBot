@@ -138,7 +138,7 @@ async function createSquads2(client, author, channel, splitMessages) {
         }
         
         //append the squad ID
-        currentMessage += ` {**${lobbyIndex}**}`;
+        //currentMessage += ` {**${lobbyIndex}**}`;
 
         //currentMessage = author.displayName + " - " + currentMessage;
 
