@@ -94,22 +94,22 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
 ## Roadmap - Current
-### Project Noticeboard - Finishing touches
-* See if I can get admins to re-create the recruiting channel
-* Post a welcome/howto join/create as the top message in the channel
+### ~~Project Noticeboard - Finishing touches~~
+* ~~See if I can get admins to re-create the recruiting channel~~
+* ~~Post a welcome/howto join/create as the top message in the channel~~
 
 ### Library rework
 * Make a way to reload library functions
 * Factor out functions for closing/filling/squad capacity editing
 * Make library functions for logging, refactor out all those
 
-### Project Emojis
-* Reaction-based squad operations
+### ~~Project Emojis~~
+* ~~Reaction-based squad operations~~
     * ~~Closing~~
         * ~~Admins/PKs can close any squad~~
     * ~~Joining~~
         * ~~Fill-closing~~
-            * Try to remove reactions when people are pulled from squads? 
+            * ~~Try to remove reactions when people are pulled from squads?~~
     * ~~Leaving~~
 * ~~Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway~~
 
