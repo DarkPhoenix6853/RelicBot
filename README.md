@@ -103,17 +103,15 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Factor out functions for closing/filling/squad capacity editing
 * Make library functions for logging, refactor out all those
 
-### Admin-closing
-* Command that lets someone with certain permissions close any squad they want
-
 ### Project Emojis
-* Reaction-based joining
-    * On create, make enough reactions for squads (throw error if too many)
-    * On reaction
-        * search for a squad message with matching ID to see if we need to care
-        * Use join/leave as appropriate for the reacting user
-            * IGNORE HOST
-* Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway
+* Reaction-based squad operations
+    * ~~Closing~~
+        * ~~Admins/PKs can close any squad~~
+    * Joining
+        * Fill-closing
+    * Leaving
+* ~~Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway~~
+
 
 ### Project PlayerDB
 * Add a third database for player-related data
