@@ -204,7 +204,7 @@ async function fillSquad(client, id, channel) {
     }
 }
 
-function pullPlayers(client, player, channel) {
+async function pullPlayers(client, player, channel) {
     //editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
     let editMessages = [];
 

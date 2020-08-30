@@ -199,7 +199,7 @@ async function getPerms(guild, user, client) {
     return privs;
 }
 
-function pullPlayers(client, player, channel) {
+async function pullPlayers(client, player, channel) {
     //editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
     let editMessages = [];
 
