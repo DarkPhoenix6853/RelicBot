@@ -20,7 +20,7 @@ function attemptJoin(client, reaction, user) {
     if (currentSquad.joinedIDs.includes(user.id)) return;
 
     //they aren't, add them
-    join(client, user.id, squadID);
+    join(client, user.id, squadID, reaction.message.channel);
 }
 
 function attemptLeave(client, reaction, user) {
@@ -40,16 +40,62 @@ function attemptLeave(client, reaction, user) {
     leave(client, user.id, squadID);
 }
 
-function join(client, userID, squadID) {
-    console.log(`Add ${userID} to ${squadID}`);
+function join(client, userID, squadID, channel) {
+    let currentSquad = client.lobbyDB.get(squadID);
+    if (!currentSquad.open || currentSquad.playerCount == 4) return;
+
+    currentSquad.playerCount++;
+    currentSquad.joinedIDs.push(userID);
+
+    if (currentSquad.playerCount == 4) {
+        fillSquad(client, squadID, channel);
+
+        let pingMessage = "Host: <@" + currentSquad.hostID + ">, Joined players: ";
+        for (id of currentSquad.joinedIDs) {
+            pingMessage = pingMessage + "<@" + id + "> "
+        }
+
+        let recruitChatChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').recruitChatChannel);
+        recruitChatChannel.send(pingMessage, createEmbed(client,"Squad filled",`Squad ${squadID} has been filled\n(${currentSquad.messageContent})`));
+    }
+
+    let editMessages = [];
+    editMessages.push({messageID: currentSquad.messageID, messageIndex: currentSquad.countIndex, count: currentSquad.playerCount, lobbyID: currentSquad.lobbyID});
+
+    doEdits(client, editMessages, channel);
 }
 
 function leave(client, userID, squadID) {
-    console.log(`Remove ${userID} from ${squadID}`);
+    let currentSquad = client.lobbyDB.get(squadID);
+    if (!currentSquad.open || currentSquad.playerCount == 4) return;
+
+    currentSquad.playerCount--;
+    currentSquad.joinedIDs.splice(currentSquad.joinedIDs.indexOf(userID), 1);
+
+    client.lobbyDB.set(squadID, currentSquad);
+
+    editMessages.push({messageID: currentSquad.messageID, messageIndex: currentSquad.countIndex, count: currentSquad.playerCount, lobbyID: currentSquad.lobbyID});
 }
 
-function editMessages() {
+async function fillSquad(client, id, channel) {
+    closeSquad(client, id);
 
+    let thisSquad = client.lobbyDB.get(id);
+
+    let squadPlayers = [];
+    squadPlayers.push(thisSquad.hostID);
+    for (player of thisSquad.joinedIDs) squadPlayers.push(player);
+
+    //for each player
+    for (player of squadPlayers) {
+        //close all
+        closeOthers(client, player);
+    }
+
+    for (player of squadPlayers) {
+        //leave all
+        pullPlayers(client, player, channel);
+    }
 }
 
 async function attemptClose(client, reaction, user) {
@@ -146,4 +192,90 @@ async function getPerms(guild, user, client) {
         }
     };
     return privs;
+}
+
+function pullPlayers(client, player, channel) {
+    //editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
+    let editMessages = [];
+
+    //find all other squads they're in
+    for (let i = 0; i < client.config.get('baseConfig').maxSquads; i++) {
+        //(if the squad ID exists)
+        if (client.lobbyDB.has(i.toString())) {
+            let squad = client.lobbyDB.get(i.toString());
+            if (!squad.open) continue;
+            //if they're in the squad
+            if (squad.joinedIDs.includes(player)) {
+                //leave it
+                squad.playerCount--;
+                squad.joinedIDs.splice(squad.joinedIDs.indexOf(player), 1);
+
+                client.lobbyDB.set(i.toString(), squad);
+
+                editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
+            }
+        }
+    }
+
+    doEdits(client, editMessages, channel);
+}
+
+function closeOthers(client, playerID) {
+    //find all other squads they're hosting
+    for (let i = 0; i < client.config.get('baseConfig').maxSquads; i++) {
+        //(if the squad ID exists)
+        if (client.lobbyDB.has(i.toString())) {
+            let squad = client.lobbyDB.get(i.toString());
+            //if they're the same host
+            if (squad.hostID == playerID) {
+                //close it
+                closeSquad(client, i.toString());
+            }
+        }
+    }
+}
+
+async function doEdits(client, editMessages, channel) {
+    const { Client, RichEmbed } = require('discord.js');
+
+    let currentMessage = null;
+    for (let edit of editMessages) {
+
+        if (edit.count == 4) continue;
+
+        let messageNotFound = false;
+
+        if (currentMessage == null || currentMessage.id != edit.messageID) {
+
+            currentMessage = await channel.fetchMessage(edit.messageID)
+            .catch(() => {
+                messageNotFound = true;
+                let logChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').logChannel);
+                logChannel.send(`<@198269661320577024> Error editing message for squad ${edit.lobbyID} for message ID ${edit.messageID}. Does it exist?`);
+            });
+        }
+
+        if (messageNotFound) continue;
+
+        const content = currentMessage.embeds[0].description;
+
+        let newMessage = content.substring(0, edit.messageIndex);
+        newMessage = newMessage + edit.count;
+        newMessage = newMessage + content.substring(edit.messageIndex + 1, content.length);
+
+        const embed = new RichEmbed()
+        .setTitle(currentMessage.embeds[0].title)
+        .setColor(client.config.get('baseConfig').colour)
+        .setDescription(newMessage);
+
+        await currentMessage.edit(embed);
+    }
+}
+
+function createEmbed(client, title, content) {
+    const { Client, RichEmbed } = require('discord.js');
+    return new RichEmbed()
+    .setTitle(title)
+    .setColor(client.config.get('baseConfig').colour)
+    .setDescription(content);
 }
