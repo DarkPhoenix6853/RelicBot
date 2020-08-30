@@ -98,11 +98,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * ~~See if I can get admins to re-create the recruiting channel~~
 * ~~Post a welcome/howto join/create as the top message in the channel~~
 
-### Library rework
-* Make a way to reload library functions
-* Factor out functions for closing/filling/squad capacity editing
-* Make library functions for logging, refactor out all those
-
 ### ~~Project Emojis~~
 * ~~Reaction-based squad operations~~
     * ~~Closing~~
@@ -113,6 +108,8 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * ~~Leaving~~
 * ~~Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway~~
 
+### Project Expiry
+* Timed squad closing
 
 ### Project PlayerDB
 * Add a third database for player-related data
@@ -137,10 +134,14 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Track number of filled squads someone has been a part of
 * Some command to check someone's rep
 * Leaderboard command
+* Command for admins to manually add rep
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
+* Automatic role giving
 
-### Project Expiry
-* Timed squad closing
+### Library rework
+* Make a way to reload library functions
+* Factor out functions for closing/filling/squad capacity editing
+* Make library functions for logging, refactor out all those
 
 ## Roadmap - Future
 ### Improvements to notice board
