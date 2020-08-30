@@ -1,9 +1,9 @@
 exports.onRemove = (client, reaction, user) => {
-    if (reaction.emoji.name == '✅') attemptJoin(client, reaction, user);
+    if (reaction.emoji.name == '✅') attemptLeave(client, reaction, user);
 }
 
 exports.onAddition = (client, reaction, user) => {
-    if (reaction.emoji.name == '✅') attemptLeave(client, reaction, user);
+    if (reaction.emoji.name == '✅') attemptJoin(client, reaction, user);
     if (reaction.emoji.name == '❎') attemptClose(client, reaction, user);
 }
 
@@ -20,7 +20,7 @@ function attemptJoin(client, reaction, user) {
     if (currentSquad.joinedIDs.includes(user.id)) return;
 
     //they aren't, add them
-    console.log(`Add ${user.username}`);
+    join(client, user.id, squadID);
 }
 
 function attemptLeave(client, reaction, user) {
@@ -37,7 +37,19 @@ function attemptLeave(client, reaction, user) {
     if (!currentSquad.joinedIDs.includes(user.id)) return;
 
     //they are in the squad, remove them
-    console.log(`Remove ${user.username}`);
+    leave(client, user.id, squadID);
+}
+
+function join(client, userID, squadID) {
+    console.log(`Add ${userID} to ${squadID}`);
+}
+
+function leave(client, userID, squadID) {
+    console.log(`Remove ${userID} from ${squadID}`);
+}
+
+function editMessages() {
+
 }
 
 async function attemptClose(client, reaction, user) {
