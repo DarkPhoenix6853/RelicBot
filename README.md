@@ -107,9 +107,10 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Reaction-based squad operations
     * ~~Closing~~
         * ~~Admins/PKs can close any squad~~
-    * Joining
-        * Fill-closing
-    * Leaving
+    * ~~Joining~~
+        * ~~Fill-closing~~
+            * Try to remove reactions when people are pulled from squads? 
+    * ~~Leaving~~
 * ~~Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway~~
 
 
