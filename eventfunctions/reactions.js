@@ -63,7 +63,7 @@ async function attemptClose(client, reaction, user) {
     let userPerms = await getPerms(reaction.message.channel.guild, user, client);
 
     let currentSquad = client.lobbyDB.get(squadID);
-    if (currentSquad.hostID != user.id && userPerms < 20) return;
+    if (currentSquad.hostID != user.id && userPerms < 10) return;
 
     //they are the host (or an admin), close it
     closeSquad(client, squadID);
