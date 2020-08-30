@@ -27,6 +27,32 @@ process.on('unhandledRejection', function(err, promise) {
 let recurringStatus = new cron.CronJob('00 00 00,12 * * *', status);
 recurringStatus.start();
 
+//-----set up reaction events-----
+const events = {
+	MESSAGE_REACTION_ADD: 'commandReactAdd',
+	MESSAGE_REACTION_REMOVE: 'commandReactRemove',
+};
+
+client.on('raw', async event => {
+	if (!events.hasOwnProperty(event.t)) return;
+
+	//get data about the event
+	const { d: data } = event;
+	const user = client.users.get(data.user_id);
+	const channel = client.channels.get(data.channel_id);
+	const message = await channel.fetchMessage(data.message_id);
+
+	const emojiKey = (data.emoji.id) ? `${data.emoji.name}:${data.emoji.id}` : data.emoji.name;
+	let reaction = message.reactions.get(emojiKey);
+
+	if (!reaction) {
+		const emoji = new Discord.Emoji(client.guilds.get(data.guild_id), data.emoji);
+		reaction = new Discord.MessageReaction(message, emoji, 1, data.user_id === client.user.id);
+	}
+
+	client.emit(events[event.t], client, reaction, user);
+});
+
 //-----add events-----
 //get files from events folder
 fs.readdir("./events/", (err, files) => {
@@ -75,6 +101,18 @@ fs.readdir("./eventfunctions/", (err, files) => {
         //add to list
         client.eventFuncs.set(eFuncName, props);
     });
+});
+
+client.on('commandReactAdd', (client, reaction, user) => {
+    if (user.bot) return;
+    const reactEvents = client.eventFuncs.get("reactions");
+    reactEvents.onAddition(client, reaction, user);
+});
+
+client.on('commandReactRemove', (client, reaction, user) => {
+    if (user.bot) return;
+    const reactEvents = client.eventFuncs.get("reactions");
+    reactEvents.onRemove(client, reaction, user);
 });
 
 //-----add commands-----
