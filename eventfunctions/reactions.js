@@ -16,7 +16,20 @@ function attemptJoin(client, reaction, user) {
 
     //check that player isn't in the squad, or is the host
     let currentSquad = client.lobbyDB.get(squadID);
-    if (currentSquad.hostID == user.id) return;
+    if (currentSquad.hostID == user.id) {
+        //remove their reaction from that squad's message
+        const message = reaction.message;
+        const userReactions = message.reactions.filter(reaction => reaction.users.has(user.id));
+        
+        try {
+            for (let reaction of userReactions.values()) {
+                reaction.remove(user.id);
+            }
+        } catch(err) {
+
+        }
+        return;
+    } 
     if (currentSquad.joinedIDs.includes(user.id)) return;
 
     //they aren't, add them
