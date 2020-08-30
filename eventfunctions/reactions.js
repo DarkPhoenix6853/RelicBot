@@ -40,18 +40,20 @@ function attemptLeave(client, reaction, user) {
     console.log(`Remove ${user.username}`);
 }
 
-function attemptClose(client, reaction, user) {
+async function attemptClose(client, reaction, user) {
     //check if it's the right reaction
     if (reaction.emoji.name != '❎') return;
     //check if it's on a message we care about
     let squadID = findSquad(client, reaction.message.id);
     if (!squadID) return;
 
-    //check if player is the host
-    let currentSquad = client.lobbyDB.get(squadID);
-    if (currentSquad.hostID != user.id) return;
+    //check if player is the host or an admin
+    let userPerms = await getPerms(reaction.message.channel.guild, user, client);
 
-    //they are the host, close it
+    let currentSquad = client.lobbyDB.get(squadID);
+    if (currentSquad.hostID != user.id && userPerms < 20) return;
+
+    //they are the host (or an admin), close it
     closeSquad(client, squadID);
 }
 
@@ -108,4 +110,28 @@ async function closeSquad (client, id) {
     .then(squadMessage => {
         if (!messageNotFound) squadMessage.delete();
     })
+}
+
+async function getPerms(guild, user, client) {
+    let privs = 0;
+    let ID = user.id;
+    const devUsers = require("../config/devUsers.json");
+
+    if (devUsers.includes(ID)) return 50;
+
+    let member = await guild.fetchMember(user);
+    if (!member) return 0;
+
+    //check through each permission level
+    for (var perm in client.config.get('perms')) {
+        perm = client.config.get('perms')[perm];
+        //if this level is better than one we've already confirmed,
+        if (perm.privs > privs) {
+            //check if the users meets this level
+            if (member.roles.some(role=>perm.roles.includes(role.id))) {
+                privs = perm.privs;
+            }
+        }
+    };
+    return privs;
 }
