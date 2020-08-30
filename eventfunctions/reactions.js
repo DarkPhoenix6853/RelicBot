@@ -37,7 +37,7 @@ function attemptLeave(client, reaction, user) {
     if (!currentSquad.joinedIDs.includes(user.id)) return;
 
     //they are in the squad, remove them
-    leave(client, user.id, squadID);
+    leave(client, user.id, squadID, reaction.message.channel);
 }
 
 function join(client, userID, squadID, channel) {
@@ -46,6 +46,8 @@ function join(client, userID, squadID, channel) {
 
     currentSquad.playerCount++;
     currentSquad.joinedIDs.push(userID);
+
+    client.lobbyDB.set(squadID, currentSquad);
 
     if (currentSquad.playerCount == 4) {
         fillSquad(client, squadID, channel);
@@ -65,7 +67,7 @@ function join(client, userID, squadID, channel) {
     doEdits(client, editMessages, channel);
 }
 
-function leave(client, userID, squadID) {
+function leave(client, userID, squadID, channel) {
     let currentSquad = client.lobbyDB.get(squadID);
     if (!currentSquad.open || currentSquad.playerCount == 4) return;
 
@@ -74,7 +76,10 @@ function leave(client, userID, squadID) {
 
     client.lobbyDB.set(squadID, currentSquad);
 
+    let editMessages = [];
     editMessages.push({messageID: currentSquad.messageID, messageIndex: currentSquad.countIndex, count: currentSquad.playerCount, lobbyID: currentSquad.lobbyID});
+
+    doEdits(client, editMessages, channel);
 }
 
 async function fillSquad(client, id, channel) {
