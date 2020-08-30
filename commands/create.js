@@ -150,6 +150,8 @@ async function createSquads2(client, author, channel, splitMessages) {
         
         channel.send(embed)
         .then((msg) => {
+            //add a reaction for people to click
+            msg.react('✅');
             //save the message ID
             squadObject = {};
             squadObject.messageID = msg.id;
