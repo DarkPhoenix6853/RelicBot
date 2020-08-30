@@ -105,7 +105,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 
 ### Admin-closing
 * Command that lets someone with certain permissions close any squad they want
-* No "all" option? 
 
 ### Project Emojis
 * Reaction-based joining
@@ -141,6 +140,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Leaderboard command
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 
+### Project Expiry
+* Timed squad closing
+
 ## Roadmap - Future
 ### Improvements to notice board
 * Add some way for people to post extra information for every squad
@@ -165,7 +167,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * Leave would also be fine
     * Make sure to update ++help
 ### Project Cleanup
-* Timed squad closing
 * Add a remake command - ++remake ID @players
     * Opens squad "ID"
     * uses the same text
