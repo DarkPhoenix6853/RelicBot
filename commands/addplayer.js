@@ -170,7 +170,7 @@ async function fillSquad(client, id, channel) {
     }
 }
 
-function pullPlayers(client, player, channel) {
+async function pullPlayers(client, player, channel) {
     //editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
     let editMessages = [];
 
@@ -189,6 +189,19 @@ function pullPlayers(client, player, channel) {
                 client.lobbyDB.set(i.toString(), squad);
 
                 editMessages.push({messageID: squad.messageID, messageIndex: squad.countIndex, count: squad.playerCount, lobbyID: squad.lobbyID});
+
+                //remove their reaction from that squad's message
+                const message = await channel.fetchMessage(squad.messageID);
+                const userReactions = message.reactions.filter(reaction => reaction.users.has(player));
+                
+                try {
+                    for (let reaction of userReactions.values()) {
+                        await reaction.remove(player);
+                    }
+                } catch(err) {
+
+                }
+                
             }
         }
     }
