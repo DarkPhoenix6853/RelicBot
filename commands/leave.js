@@ -82,6 +82,19 @@ exports.run = (client, message, args) => {
 
                 //edit the lobby message
                 editMessages.push({messageID: currentSquad.messageID, messageIndex: currentSquad.countIndex, count: currentSquad.playerCount, lobbyID: currentSquad.lobbyID});
+
+                //remove our reaction
+                message.channel.fetchMessage(currentSquad.messageID)
+                .then((squadMessage) => {
+                    const userReactions = squadMessage.reactions.filter(reaction => reaction.users.has(message.author.id));
+                    try {
+                        for (let reaction of userReactions.values()) {
+                            reaction.remove(message.author.id);
+                        }
+                    } catch (err) {
+
+                    }
+                })
             } 
         } 
     }
