@@ -94,12 +94,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
 ## Roadmap - Current
-
-### Project Expiry
-* Save the time at which a squad was created
-* Use Cron to run a sweep every 5 minutes
-* Sweep checks if a squad is too old, and closes/deletes it
-
 ### Project Reputation
 * ~~Track number of filled squads someone has been a part of~~
 * ~~Some command to check someone's rep~~
@@ -110,6 +104,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 * Automatic role giving
 * Startup plan
+    * Disable rep gaining until we're ready
     * Have users use some kind of command e.g. ++register to show they care about their rep being saved
     * Manually calculate and add rep for those people when rep update is released
 
