@@ -104,7 +104,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * ~~Track number of filled squads someone has been a part of~~
 * ~~Some command to check someone's rep~~
 * ~~Leaderboard command~~
-* Command for admins to manually add rep
+    * ~~Feature to start from a position~~
+    * player search
+* ~~Command for admins to manually add rep~~
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 * Automatic role giving
 
