@@ -124,6 +124,8 @@ async function createSquads2(client, author, channel, splitMessages) {
 
     let squadObject = {};
 
+    let currentTime = Date.now();
+
     //for each squad
     for (let currentMessage of splitMessages) {
         currentMessage = currentMessage.trim();
@@ -160,7 +162,9 @@ async function createSquads2(client, author, channel, splitMessages) {
                 msg.react('❎');
             })
             //save the message ID
+            
             squadObject = {};
+            squadObject.createdTime = currentTime;
             squadObject.messageID = msg.id;
             squadObject.channel = channel.id;
             squadObject.messageContent = msg.embeds[0].description.substring(0,matchIndex-1);
