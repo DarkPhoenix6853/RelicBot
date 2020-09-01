@@ -27,6 +27,9 @@ process.on('unhandledRejection', function(err, promise) {
 let recurringStatus = new cron.CronJob('00 00 00,12 * * *', status);
 recurringStatus.start();
 
+let squadSweeping = new cron.CronJob('00 0/5 * * * *', sweepSquads);
+squadSweeping.start();
+
 //-----set up reaction events-----
 const events = {
 	MESSAGE_REACTION_ADD: 'commandReactAdd',
@@ -154,4 +157,40 @@ function status() {
 
     client.user.setPresence(customStatus)
     .catch(console.error);
+}
+
+async function sweepSquads() {
+    const LobbyArrayKeys = client.lobbyDB.indexes;
+    const now = Date.now();
+
+    for (let key of LobbyArrayKeys) {
+
+        let thisLobby = client.lobbyDB.get(key);
+
+        if (!thisLobby.createdTime) continue;
+        
+        let diff = now - thisLobby.createdTime;
+        //diff in ms
+
+        diffMins = diff/60000;
+        //diff in mins
+
+        let max = client.config.get('baseConfig').squadTimeout;
+
+        if (diffMins > max) {
+            thisLobby.open = false;
+            client.lobbyDB.set(key, thisLobby);
+
+            let channel = client.channels.get(thisLobby.channel);
+
+            let messageNotFound = false;
+            await channel.fetchMessage(thisLobby.messageID)
+            .catch(() => {
+                messageNotFound = true;
+            })
+            .then(squadMessage => {
+                if (!messageNotFound) squadMessage.delete();
+            })
+        }
+    }
 }
