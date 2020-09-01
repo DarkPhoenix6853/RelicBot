@@ -101,7 +101,8 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * ~~Feature to start from a position~~
     * player search
 * ~~Command for admins to manually add rep~~
-* Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
+    * Make it work for mentions too
+* Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
 * Automatic role giving
 * Startup plan
     * Disable rep gaining until we're ready
