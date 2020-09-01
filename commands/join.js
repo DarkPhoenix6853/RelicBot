@@ -192,7 +192,7 @@ async function addRep(client, IDs) {
     for (id of IDs) {
         await initialisePlayer(client, id);
         let currentPlayer = client.playerDB.get(id);
-        currentPlayer.reputation++;
+        //currentPlayer.reputation++;
         client.playerDB.set(id, currentPlayer);
     }
 }
