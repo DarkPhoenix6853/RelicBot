@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
     playerArray.sort(sortPlayers);
 
     let title = "Reputation Leaderboard";
-    if (startIndex > 0) title += `starting from position ${startIndex+1}`;
+    if (startIndex > 0) title += ` starting from position ${startIndex+1}`;
 
     let sendString = '';
     for (let i = startIndex; i < startIndex+10; i++) {
