@@ -109,6 +109,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * ~~Command for admins to manually add rep~~
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 * Automatic role giving
+* Startup plan
+    * Have users use some kind of command e.g. ++register to show they care about their rep being saved
+    * Manually calculate and add rep for those people when rep update is released
 
 ### Library rework
 * Make a way to reload library functions
