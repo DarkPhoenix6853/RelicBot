@@ -77,15 +77,19 @@ exports.run = (client, message, args) => {
 
     let userArray = Array.from(playerList);
 
-    //mass ping
+    //-----mass ping-----
     let pingMessage = "";
     let newPingMessage = "";
     let currentMention = "";
 
     //until array of users is empty
     while (userArray.length > 0) {
+        let newUser = userArray.shift();
+
+        if (client.playerDB.has(newUser) && client.playerDB.get(newUser).mute) continue;
+
         //create a mention for the current user
-        currentMention = "<@" + userArray.shift() + ">";
+        currentMention = "<@" + newUser + ">";
         //create a hypothetical new ping message
         newPingMessage = pingMessage + currentMention;
 

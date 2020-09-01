@@ -2,6 +2,8 @@ const Enmap = require('enmap');
 const DBEnmap = new Enmap({ name: 'DB' });
 const lobbyDB = new Enmap({ name: 'lobbyDB' });
 
+const playerDB = new Enmap({name: 'playerDB'});
+
 exports.onReady = async (client) => {
     await DBEnmap.defer;
     console.log(`\nLoaded ${DBEnmap.size} relics from database`);
@@ -14,6 +16,10 @@ exports.onReady = async (client) => {
     }
     console.log(`Loaded ${lobbyDB.size-1} squad indicators`);
     client.lobbyDB = lobbyDB;
+
+    await playerDB.defer;
+    console.log("Loaded player database");
+    client.playerDB = playerDB;
 
     let logChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').logChannel);
     logChannel.send(`<@198269661320577024> bot restarted`);
