@@ -65,10 +65,16 @@ function join(client, userID, squadID, channel) {
     if (currentSquad.playerCount == 4) {
         fillSquad(client, squadID, channel);
 
+        let IDs = [];
+
         let pingMessage = "Host: <@" + currentSquad.hostID + ">, Joined players: ";
+        IDs.push(currentSquad.hostID);
         for (id of currentSquad.joinedIDs) {
             pingMessage = pingMessage + "<@" + id + "> "
+            IDs.push(id);
         }
+
+        addRep(client, IDs);
 
         let recruitChatChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').recruitChatChannel);
         recruitChatChannel.send(pingMessage, createEmbed(client,"Squad filled",`Squad ${squadID} has been filled\n(${currentSquad.messageContent})`));
@@ -210,6 +216,25 @@ async function getPerms(guild, user, client) {
         }
     };
     return privs;
+}
+
+async function addRep(client, IDs) {
+    for (id of IDs) {
+        await initialisePlayer(client, id);
+        let currentPlayer = client.playerDB.get(id);
+        currentPlayer.reputation++;
+        client.playerDB.set(id, currentPlayer);
+    }
+}
+
+function initialisePlayer(client, id) {
+    if (client.playerDB.has(id)) return;
+    let initialState = {
+        mute: false,
+        reputation: 0,
+        lastSeen: null
+    }
+    client.playerDB.set(id, initialState);
 }
 
 async function pullPlayers(client, player, channel) {

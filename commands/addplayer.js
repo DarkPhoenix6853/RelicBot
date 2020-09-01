@@ -97,11 +97,16 @@ exports.run = (client, message, args) => {
         //if now full, trigger full squad like join
         if (squad.playerCount == 4) {
             //send notification to subscribers
+            let IDs = [];
             let pingMessage = "Host: <@" + squad.hostID + ">, Joined players: ";
+            IDs.push(squad.hostID);
 
             for (id of squad.joinedIDs) {
                 pingMessage = pingMessage + "<@" + id + "> "
+                IDs.push(id);
             }
+
+            addRep(client, IDs);
 
             //add "filled" message to array to send later
             let filledMessage = new FutureMessage(pingMessage, createEmbed(client,"Squad filled",`Squad ${squadID} has been filled\n(${squad.messageContent})`));
@@ -148,6 +153,25 @@ exports.run = (client, message, args) => {
 
     message.delete(5000);
 };
+
+async function addRep(client, IDs) {
+    for (id of IDs) {
+        await initialisePlayer(client, id);
+        let currentPlayer = client.playerDB.get(id);
+        currentPlayer.reputation++;
+        client.playerDB.set(id, currentPlayer);
+    }
+}
+
+function initialisePlayer(client, id) {
+    if (client.playerDB.has(id)) return;
+    let initialState = {
+        mute: false,
+        reputation: 0,
+        lastSeen: null
+    }
+    client.playerDB.set(id, initialState);
+}
 
 async function fillSquad(client, id, channel) {
     closeSquad(client, id);
