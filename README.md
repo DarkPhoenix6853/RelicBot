@@ -94,46 +94,16 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
 ## Roadmap - Current
-### ~~Project Noticeboard - Finishing touches~~
-* ~~See if I can get admins to re-create the recruiting channel~~
-* ~~Post a welcome/howto join/create as the top message in the channel~~
-
-### ~~Project Emojis~~
-* ~~Reaction-based squad operations~~
-    * ~~Closing~~
-        * ~~Admins/PKs can close any squad~~
-    * ~~Joining~~
-        * ~~Fill-closing~~
-            * ~~Try to remove reactions when people are pulled from squads?~~
-    * ~~Leaving~~
-* ~~Remove the bold/curly Squad IDs, they show up in the embed title if they're needed anyway~~
 
 ### Project Expiry
-* Timed squad closing
-
-### Project PlayerDB
-* Add a third database for player-related data
-    * Could technically re-work the relic DB to be player-based, but then relic lookup would be very inefficient... 
-* To be saved: 
-    * Mute status (true/false)
-    * Last seen message (timestamp)
-    * Number of filled squads
-* Make a library function to check if someone has a DB entry, and if not create it
-    * Trigger when they are in a squad that fills
-* Actually worry about functionality later
-    * Toggle mute on Mute/Unmute commands
-    * Increment fill count on squad filled
-    * Update timestamp on any message
-
-### Project Silence
-* Mute/Unmute commands
-* Commands just toggle muted status for that player
-* When Create does its pinging, checks if a player has the mute on
+* Save the time at which a squad was created
+* Use Cron to run a sweep every 5 minutes
+* Sweep checks if a squad is too old, and closes/deletes it
 
 ### Project Reputation
-* Track number of filled squads someone has been a part of
-* Some command to check someone's rep
-* Leaderboard command
+* ~~Track number of filled squads someone has been a part of~~
+* ~~Some command to check someone's rep~~
+* ~~Leaderboard command~~
 * Command for admins to manually add rep
 * Suggest that relic run order be changed for players with low rep (they go last to avoid scammers)
 * Automatic role giving
@@ -144,12 +114,6 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Make library functions for logging, refactor out all those
 
 ## Roadmap - Future
-### Improvements to notice board
-* Add some way for people to post extra information for every squad
-    * e.g. ++create -i Need someone else to host... (message as usual)
-    * Would add some kind of info text to each squad, instead of splitting it off from them
-    * Alternatively, any line beginning with -i becomes the info message for every squad below that (until another is reached)
-* Possible improvements to 1/4 parsing - see function in Create
 ### Project Escape
 * Make sure people entering Discord formatting characters don't affect message formatting
     * In usernames e.g. \_person\_
@@ -175,17 +139,12 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * If tagged players were in the original squad, join them immediately
     * Change "Squad" command to show original message
         * Make it work for closed squads
-* Add a bump command
-    * Only available if relic is getting close to timing out
-    * (Notify a host if their squad is elligible)
-    * Resets auto-delete timer
-    * Pings relics again?
-### Project Purge
+### Project Purge?
 * Inactivity sweeping
 * Maybe use another bot, so it's safe in all channels? 
     * Have it do all the processing, but RelicBot actually handle the DB?
     * Check if concurrent DB access is safe - might just be able to use a second bot altogether
-* Have a DB of the last time everyone sent a message
+* Actually use the LastSeen entry in playerDB
 * Every night (sometime the server isn't as active) do a check
 * If someone is getting close to being marked as inactive, warn them? 
 * If someone is inactive, purge their relics from the DB (use code from someone leaving the server)
