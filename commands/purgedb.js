@@ -13,6 +13,7 @@ exports.run = (client, message, args) => {
     client.DBEnmap.deleteAll();
     client.lobbyDB.deleteAll();
     client.lobbyDB.set('nextLobby', 0);
+    client.playerDB.deleteAll();
 
     message.channel.send("Database has been purged");
 
