@@ -102,12 +102,13 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * player search
 * ~~Command for admins to manually add rep~~
     * Make it work for mentions too
+* First Release
+    * ~~Change filled messages to not use the word "filled"~~
+    * Download the recuit-chatter channel
+    * Adjust parser to use that data too
+    * Somehow find a way to import that data into the DB
 * Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
 * Automatic role giving
-* Startup plan
-    * Disable rep gaining until we're ready
-    * Have users use some kind of command e.g. ++register to show they care about their rep being saved
-    * Manually calculate and add rep for those people when rep update is released
 
 ### Library rework
 * Make a way to reload library functions
