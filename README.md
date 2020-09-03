@@ -104,7 +104,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * Make it work for mentions too
 * First Release
     * ~~Change filled messages to not use the word "filled"~~
-    * Download the recuit-chatter channel
+    * ~~Download the recuit-chatter channel~~
     * Adjust parser to use that data too
     * Somehow find a way to import that data into the DB
 * Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
