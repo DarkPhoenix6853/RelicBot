@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
 
     if (rep == NaN) return;
 
-    await initialisePlayer(client, message.author.id);
+    await initialisePlayer(client, args[0]);
 
     let player = client.playerDB.get(args[0]);
     player.reputation += rep;
