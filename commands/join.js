@@ -108,7 +108,7 @@ exports.run = (client, message, args) => {
                     addRep(client, IDs);
 
                     //add "filled" message to array to send later
-                    let filledMessage = new FutureMessage(pingMessage, createEmbed(client,"Squad filled",`Squad ${squads[i]} has been filled\n(${currentSquad.messageContent})`))
+                    let filledMessage = new FutureMessage(pingMessage, createEmbed(client,"Squad filled",`Squad ${squads[i]} is now full\n(${currentSquad.messageContent})`))
                     futureMessages.push(filledMessage);
 
                     fillSquad(client, currentSquad.lobbyID, message.channel);
@@ -192,7 +192,7 @@ async function addRep(client, IDs) {
     for (id of IDs) {
         await initialisePlayer(client, id);
         let currentPlayer = client.playerDB.get(id);
-        //currentPlayer.reputation++;
+        currentPlayer.reputation++;
         client.playerDB.set(id, currentPlayer);
     }
 }

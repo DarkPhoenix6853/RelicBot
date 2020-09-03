@@ -77,7 +77,7 @@ function join(client, userID, squadID, channel) {
         addRep(client, IDs);
 
         let recruitChatChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').recruitChatChannel);
-        recruitChatChannel.send(pingMessage, createEmbed(client,"Squad filled",`Squad ${squadID} has been filled\n(${currentSquad.messageContent})`));
+        recruitChatChannel.send(pingMessage, createEmbed(client,"Squad filled",`Squad ${squadID} is now full\n(${currentSquad.messageContent})`));
     }
 
     let editMessages = [];
@@ -222,7 +222,7 @@ async function addRep(client, IDs) {
     for (id of IDs) {
         await initialisePlayer(client, id);
         let currentPlayer = client.playerDB.get(id);
-        //currentPlayer.reputation++;
+        currentPlayer.reputation++;
         client.playerDB.set(id, currentPlayer);
     }
 }
