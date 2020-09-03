@@ -8,18 +8,30 @@ exports.permissions = (client) => {
 }
 
 //This code is run when the command is executed
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     if (args.length != 2) return;
     if (!client.playerDB.has(args[0])) return;
     let rep = parseInt(args[1], 10);
 
     if (rep == NaN) return;
 
+    await initialisePlayer(client, message.author.id);
+
     let player = client.playerDB.get(args[0]);
     player.reputation += rep;
     client.playerDB.set(args[0], player);
 
 };
+
+function initialisePlayer(client, id) {
+    if (client.playerDB.has(id)) return;
+    let initialState = {
+        mute: false,
+        reputation: 0,
+        lastSeen: null
+    }
+    client.playerDB.set(id, initialState);
+}
 
 //This code is run when "Help" is used to get info about this command
 exports.help = (client, message) => {
