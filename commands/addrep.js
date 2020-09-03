@@ -10,7 +10,6 @@ exports.permissions = (client) => {
 //This code is run when the command is executed
 exports.run = async (client, message, args) => {
     if (args.length != 2) return;
-    if (!client.playerDB.has(args[0])) return;
     let rep = parseInt(args[1], 10);
 
     if (rep == NaN) return;
