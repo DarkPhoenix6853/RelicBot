@@ -10,18 +10,34 @@ exports.permissions = (client) => {
 const fs = require('fs');
 
 //This code is run when the command is executed
-exports.run = (client, message, args) => {
-    let scores = require('../score_import.json');
+exports.run = async (client, message, args) => {
+    let scores = require('../scores.json');
 
+    let badUsers = [];
     for (score of scores) {
-        let user = client.users.find(user => user.username == score.name);
-        if (user) {
-            score.id = user.id;
+        if (score.id) {
+            await initialisePlayer(client, score.id);
+            let player = client.playerDB.get(score.id);
+            player.reputation += score.score;
+            client.playerDB.set(score.id, player);
         } else {
-            score.id = null;
+            badUsers.push({
+                "name": score.name,
+                "score": score.score
+            })
         }
     }
 
-    fs.writeFile(`./scores.json`, JSON.stringify(scores,null,4), (err) => console.error);
+    fs.writeFile(`./badusers.json`, JSON.stringify(badUsers,null,4), (err) => console.error);
 
 };
+
+function initialisePlayer(client, id) {
+    if (client.playerDB.has(id)) return;
+    let initialState = {
+        mute: false,
+        reputation: 0,
+        lastSeen: null
+    }
+    client.playerDB.set(id, initialState);
+}

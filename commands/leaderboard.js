@@ -35,13 +35,13 @@ exports.run = async (client, message, args) => {
     if (startIndex > 0) title += ` starting from position ${startIndex+1}`;
 
     let sendString = '';
-    for (let i = startIndex; i < startIndex+10; i++) {
+    let offset = 10;
+    for (let i = startIndex; i < startIndex+offset; i++) {
 
         if (i >= playerArray.length) continue;
-
+        
         sendString += `${i+1}. `;
-        member = await message.guild.fetchMember(playerArray[i].ID)
-        sendString += `<@${member.id}> - `;
+        sendString += `<@${playerArray[i].ID}> - `;
         sendString += playerArray[i].rep;
         sendString += '\n';
     }
