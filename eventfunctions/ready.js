@@ -21,7 +21,7 @@ exports.onReady = async (client) => {
     console.log("Loaded player database");
     client.playerDB = playerDB;
 
-    let logChannel = client.channels.find(channel => channel.id === client.config.get('channelConfig').logChannel);
+    let logChannel = await client.channels.find(channel => channel.id === client.config.get('channelConfig').logChannel);
     logChannel.send(`<@198269661320577024> bot restarted`);
 
     //set default status
