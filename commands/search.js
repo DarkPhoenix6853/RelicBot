@@ -33,10 +33,11 @@ exports.run = (client, message, args) => {
     }
 };
 
-let Result = function (messageURL, messageContent, squadID) {
+let Result = function (messageURL, messageContent, squadID, capacity) {
     this.messageURL = messageURL;
     this.messageContent = messageContent;
     this.squadID = squadID;
+    this.capacity = capacity;
 }
 
 function relicFormat(relic) {
@@ -89,7 +90,7 @@ async function relicSearch(client, relic) {
             if (notFound) continue;
 
             //add to results
-            results.push(new Result(squadMessage.url, currentSquad.messageContent, currentSquad.lobbyID));
+            results.push(new Result(squadMessage.url, currentSquad.messageContent, currentSquad.lobbyID, currentSquad.playerCount));
         }
     }
         
@@ -133,7 +134,7 @@ function displayResults(client, channel, results) {
         }
         
         for (result of relic.results) {
-            let nextResult = `[Squad ${result.squadID}](${result.messageURL}): ${result.messageContent}\n`;
+            let nextResult = `[Squad ${result.squadID}](${result.messageURL}): ${result.messageContent} ${result.capacity}/4\n`;
             if ((resultMessage.length + nextResult.length) > 1048) {
                 sendEmbed(client, channel, continued? "Search Results (Continued)" : "Search Results", resultMessage);
                 resultMessage = nextResult;

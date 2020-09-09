@@ -99,6 +99,7 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
     * Make it work for checking someone else's
 * ~~Leaderboard command~~
     * player search
+    * Show display name AND tag
 * ~~Command for admins to manually add rep~~
     * Make it work for mentions too
 * Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
