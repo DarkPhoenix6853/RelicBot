@@ -95,18 +95,12 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 
 ## Roadmap - Current
 ### Project Reputation
-* ~~Track number of filled squads someone has been a part of~~
 * ~~Some command to check someone's rep~~
+    * Make it work for checking someone else's
 * ~~Leaderboard command~~
-    * ~~Feature to start from a position~~
     * player search
 * ~~Command for admins to manually add rep~~
     * Make it work for mentions too
-* First Release
-    * ~~Change filled messages to not use the word "filled"~~
-    * ~~Download the recuit-chatter channel~~
-    * ~~Adjust parser to use that data too~~
-    * ~~Somehow find a way to import that data into the DB~~
 * Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
 * Automatic role giving
 
