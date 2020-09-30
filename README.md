@@ -105,6 +105,12 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Suggest that relic run order be changed for players with low rep (they go first to avoid scammers)
 * Automatic role giving
 
+### Guide cleanup
+* Do a pass through documentation to make sure everything is up to date
+    * Help commands
+    * Guide command
+    * Guide PDF
+
 ### Library rework
 * Make a way to reload library functions
 * Factor out functions for closing/filling/squad capacity editing
