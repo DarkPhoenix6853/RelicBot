@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
 
-const client = new Discord.Client();
+const client = new Discord.Client({fetchAllMembers: true});
 const baseConfig = require("./config/baseConfig.json");
 const identity = require("./config/ignore/identity.json");
 const perms = require("./config/permsConfig.json");
@@ -40,8 +40,11 @@ client.on('raw', async event => {
 	if (!events.hasOwnProperty(event.t)) return;
 
 	//get data about the event
-	const { d: data } = event;
-	const user = client.users.get(data.user_id);
+    const { d: data } = event;
+    //const user = client.users.get(data.user_id);
+    const guild = client.guilds.get(data.guild_id);
+    const member = guild.members.get(data.user_id);
+    const user = member.user;
 	const channel = client.channels.get(data.channel_id);
 	const message = await channel.fetchMessage(data.message_id);
 
