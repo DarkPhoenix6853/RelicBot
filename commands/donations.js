@@ -14,25 +14,12 @@ exports.run = (client, message, args) => {
     let name = "<@198269661320577024>";
 
     const embed = new RichEmbed()
-    .setTitle("Created by DarkPhoenix6853")
+    .setTitle("Donation information")
     .setColor(client.config.get('baseConfig').colour)
-    .setDescription(`This bot was created by ${name}.
-Feel free to DM me with bot ideas, or if you'd like to support my work please check out __${client.config.get('baseConfig').prefix}Donations__
-    
-    Thanks to: 
-
-* Shuti/MamaWisp
-* JaxDobba
-* TheLostGuthix
-* GlowingDiamond
-* Yellow Flash/Jackalope33 - The only one who managed to completely break it
-* Dradon
-* Dimon222
-* BusyHoneyBadger
-
-For assisting with debug, troubleshooting and generally helping out`);
+    .setDescription(`This bot was created by ${name}. You can support my work at these links:
+[BuyMeACoffee](https://www.buymeacoffee.com/DarkPhoenix6853)
+[Liberapay](https://liberapay.com/DarkPhoenix6853/)`);
 
     message.channel.send(embed);
 
 };
-
