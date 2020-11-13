@@ -6,7 +6,7 @@ exports.permissions = (client) => {
     }
 }
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     const { Client, RichEmbed } = require('discord.js');
 
     if (client.config.get('channelConfig').recruitChannel != message.channel.id) {
@@ -99,11 +99,8 @@ exports.run = (client, message, args) => {
             pingMessage = newPingMessage;
         } else {
             //would be too long to send, so send the old version and delete immediately
-            channel.send(pingMessage)
-            .then(msg => {
-                msg.delete();
-            })
-            .catch();
+            let msg = await channel.send(pingMessage)
+            await msg.delete();
             //start another one from the missed mention
             pingMessage = currentMention;
         }
