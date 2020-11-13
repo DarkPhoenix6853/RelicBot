@@ -94,6 +94,9 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * When a user leaves the server, their relic subscriptions are wiped to limit future useless pings
 
 ## Roadmap - Current
+### Project Update
+* Update everything to DJS v12
+
 ### Project Reputation
 * ~~Some command to check someone's rep~~
     * Make it work for checking someone else's
@@ -117,59 +120,8 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 * Make library functions for logging, refactor out all those
 
 ## Roadmap - Future
-### Project Escape
-* Make sure people entering Discord formatting characters don't affect message formatting
-    * In usernames e.g. \_person\_
-    * In hosts e.g. \_\_Lith A1\_\_\_\_Lith A2\_\_
-*  Investigate that one time the squad count was placed completely wrong because of weird emoji formatting
 ### Project Split
-* Split into a second recruiting channel
-    * Refactor recruit-channel checking into a library function
-    * Store which channel a recruit message has been sent in
-    * When editing, use this channel
-    * Don't allow commands from recruit1 to join squads in recruit2
-* Also opens up commands to be used in bot-spam
-    * Not sure on Create or Join...
-    * All Host-level commands would be fine
-    * Leave would also be fine
-    * Make sure to update ++help
-### Project Cleanup
-* Add a remake command - ++remake ID @players
-    * Opens squad "ID"
-    * uses the same text
-    * posts a new host message
-    * Only works if target squad is closed
-    * If tagged players were in the original squad, join them immediately
-    * Change "Squad" command to show original message
-        * Make it work for closed squads
-### Project Purge?
-* Inactivity sweeping
-* Maybe use another bot, so it's safe in all channels? 
-    * Have it do all the processing, but RelicBot actually handle the DB?
-    * Check if concurrent DB access is safe - might just be able to use a second bot altogether
-* Actually use the LastSeen entry in playerDB
-* Every night (sometime the server isn't as active) do a check
-* If someone is getting close to being marked as inactive, warn them? 
-* If someone is inactive, purge their relics from the DB (use code from someone leaving the server)
-* Probably leave them a message of some kind reminding them which relics they had, or even a command they can use to get them all back
-### Project Spaghetti
-* On error event, check for error type, tailor response
-    * In most circumstances, save to .json
-
-## Possible future features
-### Small
-
-### Medium
-
-### Insane
-* Mass ping using global list (Stops host messages from competing with each other)
-    * automatically starts pinging when new users are added
-    * new players to ping are just added to the list
-    * New bot just for pinging?
-        * Avoids competition
-        * Alleviates rate limit
-        * Use HTTP POST to communicate?
-* Automatically make/delete a certain number of roles for most popular relics?
-    * Less spam-pinging, requires X number of spare roles. Very far in the future. 
-    * Only change roles if there is a significant imbalance
-    * While new role is being populated, still mass-ping users instead of using it
+* Change host messages slightly for nitro boosters
+* Make an elevated host command for hunters
+    * Different colours
+    * Only joinable by Hunters
