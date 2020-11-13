@@ -62,7 +62,7 @@ exports.commandHandler = (client, message) => {
     //have already checked for the prefix
 
     //cut off the prefix, shift to lowercase for this search
-    let messageContent = message.content.slice(2).toLowerCase();
+    let messageContent = message.content.slice(2).toLowerCase().trim();
     let regex = /((create)|(host)|(c)|(h))[, \n]+/;
     let firstResult = regex.exec(messageContent);
 
