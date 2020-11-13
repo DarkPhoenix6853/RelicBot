@@ -122,6 +122,8 @@ as long as the relics have an era (Lith/Meso etc.) followed by a single letter a
 ## Roadmap - Future
 ### Project Split
 * Change host messages slightly for nitro boosters
+    * Star emojis?
+    * If they join as well? 
 * Make an elevated host command for hunters
     * Different colours
     * Only joinable by Hunters
